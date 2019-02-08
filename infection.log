@@ -1,0 +1,543 @@
+Escaped mutants:
+================
+
+
+1) /var/www/app/Console/Kernel.php:38    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     protected function commands()
+     {
+-        $this->load(__DIR__ . '/Commands');
++        
+         require base_path('routes/console.php');
+     }
+ }
+
+
+2) /var/www/app/Helpers/BookAuthorFaker.php:14    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     /**
+      * @param int $entitiesQuantity
+      */
+-    public static function fake(int $entitiesQuantity = 100)
++    public static function fake(int $entitiesQuantity = 99)
+     {
+         factory(Author::class, $entitiesQuantity)->create();
+         factory(Book::class, $entitiesQuantity)->create();
+
+
+3) /var/www/app/Helpers/BookAuthorFaker.php:14    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     /**
+      * @param int $entitiesQuantity
+      */
+-    public static function fake(int $entitiesQuantity = 100)
++    public static function fake(int $entitiesQuantity = 101)
+     {
+         factory(Author::class, $entitiesQuantity)->create();
+         factory(Book::class, $entitiesQuantity)->create();
+
+
+4) /var/www/app/Helpers/BookAuthorFaker.php:17    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public static function fake(int $entitiesQuantity = 100)
+     {
+         factory(Author::class, $entitiesQuantity)->create();
+-        factory(Book::class, $entitiesQuantity)->create();
++        
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+             $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
+
+
+5) /var/www/app/Helpers/BookAuthorFaker.php:20    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         factory(Author::class, $entitiesQuantity)->create();
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+-        Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
+-        });
++        
+     }
+ }
+
+6) /var/www/app/Helpers/BookAuthorFaker.php:21    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
++            
+         });
+     }
+ }
+
+
+7) /var/www/app/Helpers/BookAuthorFaker.php:22    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
++            $book->authors()->attach($authors->random(rand(2, 5))->pluck('id')->toArray());
+         });
+     }
+ }
+
+
+8) /var/www/app/Helpers/BookAuthorFaker.php:22    [M] OneZeroInteger
+
+--- Original
++++ New
+@@ @@
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
++            $book->authors()->attach($authors->random(rand(0, 5))->pluck('id')->toArray());
+         });
+     }
+ }
+
+
+9) /var/www/app/Helpers/BookAuthorFaker.php:22    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
++            $book->authors()->attach($authors->random(rand(1, 4))->pluck('id')->toArray());
+         });
+     }
+ }
+
+
+10) /var/www/app/Helpers/BookAuthorFaker.php:22    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         factory(Book::class, $entitiesQuantity)->create();
+         $authors = Author::all();
+         Book::all()->each(function ($book) use($authors) {
+-            $book->authors()->attach($authors->random(rand(1, 5))->pluck('id')->toArray());
++            $book->authors()->attach($authors->random(rand(1, 6))->pluck('id')->toArray());
+         });
+     }
+ }
+
+
+11) /var/www/app/Http/Controllers/TestController.php:10    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ use Exception;
+ class TestController extends Controller
+ {
+-    public function hello()
++    protected function hello()
+     {
+         return view('welcome');
+     }
+ }
+
+12) /var/www/app/Http/Controllers/TestController.php:12    [M] FunctionCall
+
+--- Original
++++ New
+@@ @@
+ {
+     public function hello()
+     {
+-        return view('welcome');
++        view('welcome');
++        return null;
+     }
+ }
+
+
+13) /var/www/app/Providers/AuthServiceProvider.php:26    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function boot()
+     {
+-        $this->registerPolicies();
++        
+         //
+     }
+ }
+
+
+14) /var/www/app/Providers/EventServiceProvider.php:30    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function boot()
+     {
+-        parent::boot();
++        
+         //
+     }
+ }
+
+
+15) /var/www/app/Providers/RouteServiceProvider.php:38    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function map()
+     {
+-        $this->mapApiRoutes();
++        
+         $this->mapWebRoutes();
+         //
+     }
+
+
+16) /var/www/app/Providers/RouteServiceProvider.php:52    [M] ProtectedVisibility
+
+--- Original
++++ New
+@@ @@
+      *
+      * @return void
+      */
+-    protected function mapWebRoutes()
++    private function mapWebRoutes()
+     {
+         Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
+     }
+
+
+17) /var/www/app/Providers/RouteServiceProvider.php:66    [M] ProtectedVisibility
+
+--- Original
++++ New
+@@ @@
+      *
+      * @return void
+      */
+-    protected function mapApiRoutes()
++    private function mapApiRoutes()
+     {
+         Route::prefix('api')->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
+     }
+ }
+
+18) /var/www/app/Providers/RouteServiceProvider.php:68    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     protected function mapApiRoutes()
+     {
+-        Route::prefix('api')->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
++        
+     }
+ }
+
+Timed Out mutants:
+==================
+
+Not Covered mutants:
+====================
+
+
+1) /var/www/app/Exceptions/Handler.php:37    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function report(Exception $exception)
+     {
+-        parent::report($exception);
++        
+     }
+     /**
+      * Render an exception into an HTTP response.
+
+
+2) /var/www/app/Http/Controllers/Auth/ForgotPasswordController.php:30    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function __construct()
+     {
+-        $this->middleware('guest');
++        
+     }
+ }
+
+
+3) /var/www/app/Http/Controllers/Auth/LoginController.php:37    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function __construct()
+     {
+-        $this->middleware('guest')->except('logout');
++        
+     }
+ }
+
+
+4) /var/www/app/Http/Controllers/Auth/RegisterController.php:40    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function __construct()
+     {
+-        $this->middleware('guest');
++        
+     }
+     /**
+      * Get a validator for an incoming registration request.
+
+
+5) /var/www/app/Http/Controllers/Auth/RegisterController.php:49    [M] ProtectedVisibility
+
+--- Original
++++ New
+@@ @@
+      * @param  array  $data
+      * @return \Illuminate\Contracts\Validation\Validator
+      */
+-    protected function validator(array $data)
++    private function validator(array $data)
+     {
+         return Validator::make($data, ['name' => ['required', 'string', 'max:255'], 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], 'password' => ['required', 'string', 'min:6', 'confirmed']]);
+     }
+
+
+6) /var/www/app/Http/Controllers/Auth/RegisterController.php:64    [M] ProtectedVisibility
+
+--- Original
++++ New
+@@ @@
+      * @param  array  $data
+      * @return \App\User
+      */
+-    protected function create(array $data)
++    private function create(array $data)
+     {
+         return User::create(['name' => $data['name'], 'email' => $data['email'], 'password' => Hash::make($data['password'])]);
+     }
+ }
+
+7) /var/www/app/Http/Controllers/Auth/ResetPasswordController.php:37    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function __construct()
+     {
+-        $this->middleware('guest');
++        
+     }
+ }
+
+
+8) /var/www/app/Http/Controllers/Auth/VerificationController.php:37    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function __construct()
+     {
+-        $this->middleware('auth');
++        
+         $this->middleware('signed')->only('verify');
+         $this->middleware('throttle:6,1')->only('verify', 'resend');
+     }
+ }
+
+9) /var/www/app/Http/Controllers/Auth/VerificationController.php:38    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function __construct()
+     {
+         $this->middleware('auth');
+-        $this->middleware('signed')->only('verify');
++        
+         $this->middleware('throttle:6,1')->only('verify', 'resend');
+     }
+ }
+
+
+10) /var/www/app/Http/Controllers/Auth/VerificationController.php:39    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->middleware('auth');
+         $this->middleware('signed')->only('verify');
+-        $this->middleware('throttle:6,1')->only('verify', 'resend');
++        
+     }
+ }
+
+
+11) /var/www/app/Http/Middleware/Authenticate.php:17    [M] LogicalNot
+
+--- Original
++++ New
+@@ @@
+      */
+     protected function redirectTo($request)
+     {
+-        if (!$request->expectsJson()) {
++        if ($request->expectsJson()) {
+             return route('login');
+         }
+     }
+ }
+
+12) /var/www/app/Http/Middleware/Authenticate.php:18    [M] FunctionCall
+
+--- Original
++++ New
+@@ @@
+     protected function redirectTo($request)
+     {
+         if (!$request->expectsJson()) {
+-            return route('login');
++            route('login');
++            return null;
+         }
+     }
+ }
+
+13) /var/www/app/Http/Middleware/RedirectIfAuthenticated.php:18    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      * @param  string|null  $guard
+      * @return mixed
+      */
+-    public function handle($request, Closure $next, $guard = null)
++    protected function handle($request, Closure $next, $guard = null)
+     {
+         if (Auth::guard($guard)->check()) {
+             return redirect('/home');
+
+
+14) /var/www/app/Http/Middleware/RedirectIfAuthenticated.php:21    [M] FunctionCall
+
+--- Original
++++ New
+@@ @@
+     public function handle($request, Closure $next, $guard = null)
+     {
+         if (Auth::guard($guard)->check()) {
+-            return redirect('/home');
++            redirect('/home');
++            return null;
+         }
+         return $next($request);
+     }
+
+15) /var/www/app/Http/Middleware/RedirectIfAuthenticated.php:24    [M] FunctionCall
+
+--- Original
++++ New
+@@ @@
+         if (Auth::guard($guard)->check()) {
+             return redirect('/home');
+         }
+-        return $next($request);
++        $next($request);
++        return null;
+     }
+ }
+
+
+16) /var/www/app/Models/Author.php:42    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     /**
+      * @return BelongsToMany
+      */
+-    public function books() : BelongsToMany
++    protected function books() : BelongsToMany
+     {
+         return $this->belongsToMany(Book::class, 'books_authors', 'author_id', 'book_id');
+     }
+ }
+
+17) /var/www/app/Providers/BroadcastServiceProvider.php:15    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      *
+      * @return void
+      */
+-    public function boot()
++    protected function boot()
+     {
+         Broadcast::routes();
+         require base_path('routes/channels.php');
+     }
+
+18) /var/www/app/Providers/BroadcastServiceProvider.php:17    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+      */
+     public function boot()
+     {
+-        Broadcast::routes();
++        
+         require base_path('routes/channels.php');
+     }
+ }

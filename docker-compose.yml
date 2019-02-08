@@ -1,0 +1,103 @@
+version: '3'
+
+networks:
+  laratesting:
+
+volumes:
+  postgres:
+
+services:
+  pg:
+    image: postgres:10.4-alpine
+    environment:
+      - TERM=xterm
+      - LC_COLLATE=ru_RU.UTF-8
+      - LC_CTYPE=ru_RU.UTF-8
+      - POSTGRES_DB=laratest
+      - POSTGRES_USER=laratest_user
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_INITDB_ARGS="--locale=ru_RU"
+      - PAGER=less
+    expose:
+      - "5432"
+    volumes:
+      - postgres:/var/lib/postgresql
+    networks:
+      - laratesting
+
+  playground:
+    build:
+      context: ./.docker/playground
+      args:
+        - PHP_VERSION=7.2
+        - INSTALL_XDEBUG=true
+        - INSTALL_PHPDBG=true
+        - INSTALL_BLACKFIRE=false
+        - BLACKFIRE_CLIENT_ID
+        - BLACKFIRE_CLIENT_TOKEN
+        - INSTALL_SSH2=false
+        - INSTALL_GMP=false
+        - INSTALL_SOAP=false
+        - INSTALL_LDAP=false
+        - INSTALL_IMAP=false
+        - INSTALL_MONGO=false
+        - INSTALL_AMQP=false
+        - INSTALL_PHPREDIS=false
+        - INSTALL_MSSQL=false
+        - INSTALL_NODE=false
+        - NPM_REGISTRY=false
+        - INSTALL_YARN=false
+        - INSTALL_NPM_GULP=false
+        - INSTALL_NPM_BOWER=false
+        - INSTALL_NPM_VUE_CLI=false
+        - iNSTALL_DRUSH=false
+        - INSTALL_DRUPAL_CONSOLE=false
+        - INSTALL_AEROSPIKE=false
+        - AEROSPIKE_PHP_REPOSITORY=false
+        - INSTALL_V8JS=false
+        - COMPOSER_GLOBAL_INSTALL=true
+        - COMPOSER_REPO_PACKAGIST=
+        - INSTALL_WORKSPACE_SSH=false
+        - INSTALL_LARAVEL_ENVOY=false
+        - INSTALL_LARAVEL_INSTALLER=false
+        - INSTALL_DEPLOYER=false
+        - INSTALL_PRESTISSIMO=true
+        - INSTALL_LINUXBREW=false
+        - INSTALL_MC=false
+        - INSTALL_SYMFONY=false
+        - INSTALL_PYTHON=false
+        - INSTALL_IMAGE_OPTIMIZERS=false
+        - INSTALL_IMAGEMAGICK=false
+        - INSTALL_TERRAFORM=false
+        - INSTALL_DUSK_DEPS=true
+        - INSTALL_PG_CLIENT=true
+        - INSTALL_PHALCON=false
+        - INSTALL_SWOOLE=false
+        - INSTALL_LIBPNG=false
+        - INSTALL_IONCUBE=true
+        - INSTALL_MYSQL_CLIENT=false
+        - PUID
+        - PGID
+        - CHROME_DRIVER_VERSION=73.0.3683.20
+        - NODE_VERSION
+        - NPM_REGISTRY
+        - YARN_VERSION
+        - DRUSH_VERSION
+        - TZ="Europe/Moscow"
+    environment:
+        - APP_KEY=base64:h80dbSZohAAV92l/7idEXi/rQUPpvXXyYtnqknWAeVg=
+        - APP_DEBUG=true
+        - DB_CONNECTION=pgsql
+        - DB_HOST=pg
+        - DB_DATABASE=laratest
+        - DB_USERNAME=laratest_user
+        - DB_PORT=5432
+        - DB_PASSWORD=secret
+        - APP_ENV=local
+    tty: true
+    depends_on:
+      - pg
+    volumes:
+        - ./:/var/www:delegated
+    networks:
+      - laratesting
